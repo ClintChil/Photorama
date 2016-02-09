@@ -45,6 +45,15 @@ class PhotoStore {
     }
     
     func fetchImageForPhoto(photo: Photo, completion: (ImageResult) -> Void) {
+        
+        
+        // If the image already exists on the Photo
+        // the image data whould not be downloaded again
+        if let image = photo.image {
+            completion(.Success(image))
+            return
+        }
+        
         let photoURL = photo.remoteURL
         let request = NSURLRequest(URL: photoURL)
         
